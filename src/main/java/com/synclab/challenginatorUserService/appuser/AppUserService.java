@@ -24,6 +24,7 @@ public class AppUserService implements UserDetailsService {
 
     String cryptPwd = bCryptPasswordEncoder.encode(appUser.getPassword());
     appUser.setPassword(cryptPwd);
+    
 
     userRepository.save(appUser);
             return "success";
