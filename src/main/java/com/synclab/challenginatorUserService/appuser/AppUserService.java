@@ -12,9 +12,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;  //Repository utenti per accesso al DB
+    private final BCryptPasswordEncoder bCryptPasswordEncoder; //Encrypter password
 
+    //Metodo per registrazione utente, verifica se c'è già la mail nel DB e inserisce
     public String signUpUser(AppUser appUser){
     boolean userExists = userRepository.findByEmail(appUser.getEmail())
             .isPresent();
@@ -25,16 +26,9 @@ public class AppUserService implements UserDetailsService {
     appUser.setPassword(cryptPwd);
 
     userRepository.save(appUser);
-
-
-
-            return "it works";
+            return "success";
     }
 
-
-    public String signInUser(String username, String password){
-        return "login";
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

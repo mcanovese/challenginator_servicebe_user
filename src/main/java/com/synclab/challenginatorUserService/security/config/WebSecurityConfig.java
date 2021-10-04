@@ -16,6 +16,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+
+/*
+Configurazione Spring Security
+gli endpoint di sign-up e sign-in sono ad accesso libero
+agli altri viene applicato il filtro JWT per verificare token
+il tutto è STATELESS in quanto non viene aperta una session ma ogni richiesta viene verificata
+ */
+
+
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
@@ -57,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+     //OVVERIDE NECESSARIO per poter marcare con @Autowired l' AuthenticationManager nel service del SignIn
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

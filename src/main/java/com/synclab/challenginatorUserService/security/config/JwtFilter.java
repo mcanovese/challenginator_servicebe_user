@@ -16,6 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+FILTRO JWT
+utilizzato in Security per la gestione degli accessi ad utenti autenticati.
+prende il token in arrivo dalla request sul campo "Authorization" e ne verifica la validità
+
+ */
+
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 

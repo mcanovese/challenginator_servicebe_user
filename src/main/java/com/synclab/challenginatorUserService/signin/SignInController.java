@@ -36,7 +36,7 @@ public class SignInController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInRequest signInRequest) throws Exception{
 
         try {
-            authenticationManager.authenticate(
+            authenticationManager.authenticate(  //prendo dalla request le credenziali e genero un nuovo oggetto
                     new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword())
             );
         } catch (BadCredentialsException e){
@@ -46,7 +46,7 @@ public class SignInController {
        final UserDetails userDetails = appUserService.loadUserByUsername(
                 signInRequest.getEmail());
 
-        final String jwt = jwtUtil.generateToken(userDetails);
+        final String jwt = jwtUtil.generateToken(userDetails); // Genero un JWT
         return ResponseEntity.ok(new SignInResponse(jwt));
 
 

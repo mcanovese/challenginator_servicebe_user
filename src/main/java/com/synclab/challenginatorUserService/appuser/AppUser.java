@@ -12,6 +12,12 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
+/*
+Definizione della classe AppUser (ricordare che User è una keyword riservata di postgres per cui da errore se si mappa una classe User)
+estende UserDetails per integrazione con Spring Security
+ */
+
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -19,7 +25,7 @@ import java.util.Collections;
 @Entity
 public class AppUser implements UserDetails {
 
-    @Id
+    @Id  // PK di AppUser nel DB - generazione automatica e sequenziale dell' id utente
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
@@ -34,8 +40,8 @@ public class AppUser implements UserDetails {
     private Long bossId;
     private Long score;
     @Enumerated(EnumType.STRING)
-    private AppUserRole appUserRole;
-    private Boolean locked = false;
+    private AppUserRole appUserRole;  // definito tipo enum solo con ADMIN e USER
+    private Boolean locked = false;  // non utilizzati nella logica implementativa
     private Boolean enabled = true;
 
     public AppUser(String name,
@@ -55,6 +61,8 @@ public class AppUser implements UserDetails {
         this.appUserRole = appUserRole;
 
     }
+
+    // ovveride dei metodi di UserDetails per poterla usare
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -85,7 +93,7 @@ public class AppUser implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }
+    }  //ritorna sempre true - attributo non utilizzato
 
     @Override
     public boolean isEnabled() {

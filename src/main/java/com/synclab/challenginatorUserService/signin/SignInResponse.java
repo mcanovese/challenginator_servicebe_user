@@ -4,6 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/*
+definizione risposta endpoint signin - solo il token jwt
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

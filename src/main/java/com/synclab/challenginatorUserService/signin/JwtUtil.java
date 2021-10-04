@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/*
+Classe che definisce metodi per operare su JWT  utilizzata dal controller
+ */
+
+
 @Service
 public class JwtUtil {
 
@@ -44,7 +49,7 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // <<<< 10 ORE VALIDITA' TOKEN
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
