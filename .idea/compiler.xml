@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="challenginatorUserService" />
         <module name="challenginator_be_user" />
+        <module name="challenginator_servicebe_user" />
       </profile>
     </annotationProcessing>
   </component>
@@ -16,6 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="challenginatorUserService" options="-parameters" />
       <module name="challenginator_be_user" options="-parameters" />
+      <module name="challenginator_servicebe_user" options="-parameters" />
     </option>
   </component>
 </project>
