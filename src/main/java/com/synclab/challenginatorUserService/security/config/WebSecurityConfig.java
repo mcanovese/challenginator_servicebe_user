@@ -38,18 +38,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    @Autowired
    private JwtFilter jwtFilter;
 
+   @Autowired
+   private ExceptionHandlerFilter exceptionHandlerFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        http
                .csrf().disable()
                .authorizeRequests()
-               .antMatchers("/user/sign-up/**", "/user/sign-in/**")
+               .antMatchers("/user/sign-up/**", "/user/sign-in/**", "/user/authcheck/**")
                .permitAll()
                .anyRequest()
                .authenticated()
                .and().sessionManagement()
                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);  // imposto policy stateless su session, ed integro il filtro JWT
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(exceptionHandlerFilter, JwtFilter.class);
+
 
     }
 

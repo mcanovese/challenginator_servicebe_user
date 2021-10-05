@@ -1,6 +1,7 @@
 package com.synclab.challenginatorUserService.appuser;
 
 
+import com.synclab.challenginatorUserService.signin.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,18 @@ public class UserController {
     private final AppUserService appUserService;
 
     @Autowired
+    private final JwtUtil jwtUtil;
+
+    @Autowired
     private final UserRepository userRepository;
 
-    public UserController(AppUserService appUserService, UserRepository userRepository) {
+    public UserController(AppUserService appUserService, JwtUtil jwtUtil, UserRepository userRepository) {
         this.appUserService = appUserService;
+        this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
     }
 
-    // POST USER delegata al signup controller 
+    // POST USER delegata al signup controller
 
     @GetMapping("/user")
     public List<AppUser> getUser() {
@@ -39,9 +44,10 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-
-
-
+    @PostMapping("user/authcheck")
+    public Boolean userAuthCheck(@RequestHeader(name= "Authorization") String jwt) {
+        return !jwtUtil.isTokenExpired(jwt);
+    }
 
 
 
