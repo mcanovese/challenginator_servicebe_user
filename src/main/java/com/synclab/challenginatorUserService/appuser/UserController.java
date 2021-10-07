@@ -3,8 +3,12 @@ package com.synclab.challenginatorUserService.appuser;
 
 import com.synclab.challenginatorUserService.signin.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,43 +16,44 @@ import java.util.Optional;
 
 public class UserController {
 
-    @Autowired
     private final AppUserService appUserService;
 
     @Autowired
-    private final JwtUtil jwtUtil;
+    private  JwtUtil jwtUtil;
 
-    @Autowired
-    private final UserRepository userRepository;
 
-    public UserController(AppUserService appUserService, JwtUtil jwtUtil, UserRepository userRepository) {
+    public UserController(AppUserService appUserService) {
         this.appUserService = appUserService;
-        this.jwtUtil = jwtUtil;
-        this.userRepository = userRepository;
     }
 
     // POST USER delegata al signup controller
 
     @GetMapping("/user")
     public List<AppUser> getUser() {
-        return userRepository.findAll();
+        return appUserService.getAllUser();
     }
 
     @PutMapping("user")
     public AppUser updateUser(@RequestBody AppUser appUser){
-        return userRepository.save(appUser);
+        return appUserService.saveUser(appUser);
     }
 
     @GetMapping("user/{id}")
-    public Optional<AppUser> getUserById(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public Optional<AppUser> getUserById(@PathVariable Long id ) {
+        return appUserService.findById(id);
     }
 
     @PostMapping("user/authcheck")
-    public Boolean userAuthCheck(@RequestHeader(name= "Authorization") String jwt) {
-        return !jwtUtil.isTokenExpired(jwt);
+    public UserDetails userAuthCheck(@RequestHeader(name= "Authorization") String jwt) {
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetails = appUserService.loadUserByUsername(username);
+        return userDetails;
     }
 
+    @GetMapping("user/principal")
+    public String principal(Principal principal){
+        return principal.getName();
+    }
 
 
 }

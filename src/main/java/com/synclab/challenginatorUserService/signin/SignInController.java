@@ -23,10 +23,8 @@ import io.jsonwebtoken.JwtBuilder;
 @RequestMapping(path="/user/sign-in")
 public class SignInController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
+    private AuthenticationManager authenticationManager;
     private AppUserService appUserService;
 
     @Autowired

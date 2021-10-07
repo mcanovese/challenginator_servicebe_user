@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/user/sign-up")
-@AllArgsConstructor
 public class SignUpController {
 
     private SignUpService signUpService;
@@ -17,8 +16,6 @@ public class SignUpController {
     @PostMapping
     public String register(@RequestBody  SignUpRequest request){
         return signUpService.register(request);
-
-
     }
 
 

@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
@@ -29,6 +32,19 @@ public class AppUserService implements UserDetailsService {
     userRepository.save(appUser);
             return "success";
     }
+
+    public List<AppUser> getAllUser(){
+        return userRepository.findAll();
+    }
+
+    public AppUser saveUser(AppUser appUser){
+        return userRepository.save(appUser);
+    }
+
+    public Optional<AppUser> findById(Long id){
+        return userRepository.findById(id);
+    }
+
 
 
     @Override
