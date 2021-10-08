@@ -21,10 +21,12 @@ import io.jsonwebtoken.JwtBuilder;
 
 @RestController
 @RequestMapping(path="/user/sign-in")
+@AllArgsConstructor
 public class SignInController {
 
-
+    @Autowired
     private AuthenticationManager authenticationManager;
+
     private AppUserService appUserService;
 
     @Autowired

@@ -1,13 +1,16 @@
 package com.synclab.challenginatorUserService.appuser;
 
 import lombok.AllArgsConstructor;
+import org.h2.util.json.JSONObject;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -27,7 +30,6 @@ public class AppUserService implements UserDetailsService {
 
     String cryptPwd = bCryptPasswordEncoder.encode(appUser.getPassword());
     appUser.setPassword(cryptPwd);
-    
 
     userRepository.save(appUser);
             return "success";
@@ -45,11 +47,29 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
+    public Map<String, Long> getBoss(Long id){
+        Map<String,Long> bossDetails = new HashMap<>();
+
+        AppUser currentUSer = userRepository.getById(id);
+        AppUser bossOfCurrent = userRepository.getById(currentUSer.getBossId());
+
+        //Non posso sfidare un Admin
+        if(bossOfCurrent.getAppUserRole() != AppUserRole.ADMIN){
+        AppUser bossOfMyBoss = userRepository.getById(bossOfCurrent.getBossId());
+        bossDetails.put("bossOfUserBoss",bossOfMyBoss.getId());
+        } else  bossDetails.put("bossOfUserBoss", null);
+
+        bossDetails.put("userId",currentUSer.getId());
+        bossDetails.put("bossOfUser",bossOfCurrent.getId());
+
+        return bossDetails;
+    }
 
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public AppUser loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(
                 ()-> new UsernameNotFoundException("ERROR - email not found"));
     }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/user/sign-up")
+@AllArgsConstructor
 public class SignUpController {
 
     private SignUpService signUpService;
