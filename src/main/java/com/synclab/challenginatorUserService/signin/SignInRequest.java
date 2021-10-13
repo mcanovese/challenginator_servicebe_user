@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 
-
 /*
 Definizione della SignIn Request che contiene appunto solamente
 email e password

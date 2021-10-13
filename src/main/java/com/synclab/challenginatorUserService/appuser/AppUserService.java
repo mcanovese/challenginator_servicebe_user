@@ -32,7 +32,7 @@ public class AppUserService implements UserDetailsService {
     appUser.setPassword(cryptPwd);
 
     userRepository.save(appUser);
-            return "success";
+        return "{\"operation\":\"ok\"}";
     }
 
     public List<AppUser> getAllUser(){

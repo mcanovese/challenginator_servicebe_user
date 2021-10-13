@@ -3,6 +3,7 @@ package com.synclab.challenginatorUserService.security.config;
 import io.jsonwebtoken.JwtException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -22,10 +23,15 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         } catch (JwtException e) {
             setErrorResponse(HttpStatus.BAD_REQUEST, response, e);
             e.printStackTrace();
+        } catch (AuthenticationException e) {
+          System.out.println("errore");
         } catch (RuntimeException e) {
             e.printStackTrace();
             setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, response, e);
         }
+
+
+
     }
 
     public void setErrorResponse(HttpStatus status, HttpServletResponse response, Throwable ex){
