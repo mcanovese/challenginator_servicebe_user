@@ -7,6 +7,7 @@ import com.synclab.challenginatorUserService.signin.JwtUtil;
 import io.swagger.v3.core.util.Json;
 import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @PutMapping("user")
-    public AppUser updateUser(@RequestBody AppUser appUser){
+    public HttpStatus updateUser(@RequestBody AppUser appUser){
         return appUserService.saveUser(appUser);
     }
 

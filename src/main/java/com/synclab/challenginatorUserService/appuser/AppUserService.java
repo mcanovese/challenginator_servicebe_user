@@ -2,6 +2,7 @@ package com.synclab.challenginatorUserService.appuser;
 
 import lombok.AllArgsConstructor;
 import org.h2.util.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +23,7 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder; //Encrypter password
 
     //Metodo per registrazione utente, verifica se c'è già la mail nel DB e inserisce
-    public String signUpUser(AppUser appUser){
+    public HttpStatus signUpUser(AppUser appUser){
     boolean userExists = userRepository.findByEmail(appUser.getEmail())
             .isPresent();
 
@@ -32,15 +33,16 @@ public class AppUserService implements UserDetailsService {
     appUser.setPassword(cryptPwd);
 
     userRepository.save(appUser);
-        return "{\"operation\":\"ok\"}";
+        return HttpStatus.OK;
     }
 
     public List<AppUser> getAllUser(){
         return userRepository.findAll();
     }
 
-    public AppUser saveUser(AppUser appUser){
-        return userRepository.save(appUser);
+    public HttpStatus saveUser(AppUser appUser){
+        AppUser user =  userRepository.save(appUser);
+        return HttpStatus.OK;
     }
 
     public Optional<AppUser> findById(Long id){

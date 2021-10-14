@@ -46,7 +46,7 @@ public class SignInController {
                     new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"result\":\"error bad credential\"}");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"error\":\"bad credential\"}");
         }
 
 
@@ -55,7 +55,7 @@ public class SignInController {
 
         final String jwt = jwtUtil.generateToken(userDetails); // Genero un JWT
         return ResponseEntity.ok(new SignInResponse(jwt));
-        
+
 
     }
 
