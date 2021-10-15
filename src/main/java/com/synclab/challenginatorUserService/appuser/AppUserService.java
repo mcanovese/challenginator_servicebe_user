@@ -67,6 +67,14 @@ public class AppUserService implements UserDetailsService {
         return bossDetails;
     }
 
+    public boolean addPointToUser(Long userId) {
+        AppUser user = userRepository.getById(userId);
+        Long newScore = user.getScore()+1;
+        user.setScore(newScore);
+        userRepository.save(user);
+        return true;
+    }
+
 
     @Override
     public AppUser loadUserByUsername(String email) throws UsernameNotFoundException {

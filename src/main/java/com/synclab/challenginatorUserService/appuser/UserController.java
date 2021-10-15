@@ -14,10 +14,11 @@ public class UserController {
 
     private final AppUserService appUserService;
 
+
     @Autowired
     private  JwtUtil jwtUtil;
 
-    public UserController(AppUserService appUserService) {
+    public UserController(AppUserService appUserService ) {
         this.appUserService = appUserService;
     }
 
@@ -43,6 +44,23 @@ public class UserController {
     {
         //restituisce la gerarchia di responsabili di un id
         return appUserService.getBoss(id);
+    }
+
+    @PostMapping( "/user/valutate")
+    public HttpStatus addPoint(@RequestHeader(name="challenged") Long challengedId,@RequestHeader(name= "Authorization") String jwt){
+
+        Map<String,Long> authValutator = appUserService.getBoss(challengedId);
+        String username = jwtUtil.extractUsername(jwt);
+        AppUser valutator = appUserService.loadUserByUsername(username);
+
+        if(valutator.getId()== authValutator.get("bossOfUser") || valutator.getId()== authValutator.get("bossOfUserBoss") )
+        {
+            Boolean result = appUserService.addPointToUser(challengedId);
+            if(result) return HttpStatus.OK;
+            else return HttpStatus.BAD_REQUEST;
+        }
+        else return HttpStatus.BAD_REQUEST;
+
     }
 
     @PostMapping("user/authcheck")
