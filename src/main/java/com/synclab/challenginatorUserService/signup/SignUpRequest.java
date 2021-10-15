@@ -17,15 +17,11 @@ public class SignUpRequest {
     private final String password;
     private final String email;
 
-
+    // Verifico se la richiesta ha tutti i campi necessari per fare il signUp
     public boolean requestCheck(){
-
         if(this.getName() != null && this.getSurname() !=null && this.getPassword() != null && this.getEmail() != null)
             return true;
-
             else return false;
-
-
     }
 
 

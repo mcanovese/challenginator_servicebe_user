@@ -21,8 +21,8 @@ public class SignUpService  {
                         request.getSurname(),
                         request.getEmail(),
                         request.getPassword(),
-                        122L,
-                        100L,
+                        null,  // il boss va impostato in DB da amministratore
+                        0L,
                         AppUserRole.USER
                 )
         );

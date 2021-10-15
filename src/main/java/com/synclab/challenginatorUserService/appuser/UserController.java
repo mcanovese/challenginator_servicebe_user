@@ -1,27 +1,15 @@
 package com.synclab.challenginatorUserService.appuser;
 
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.synclab.challenginatorUserService.signin.JwtUtil;
-
-import io.swagger.v3.core.util.Json;
-import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.memory.UserAttribute;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
-
 public class UserController {
 
     private final AppUserService appUserService;
@@ -63,11 +51,4 @@ public class UserController {
         AppUser userDetails = appUserService.loadUserByUsername(username);
         return userDetails.getId();
     }
-
-    @GetMapping("user/principal")
-    public String principal(Principal principal){
-        return principal.getName();
-    }
-
-
 }

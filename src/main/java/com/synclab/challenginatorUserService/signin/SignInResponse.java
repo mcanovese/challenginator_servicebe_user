@@ -13,7 +13,7 @@ definizione risposta endpoint signin - solo il token jwt
 @Setter
 @AllArgsConstructor
 public class SignInResponse {
-
+    
     private final String jwt;
 
 }
