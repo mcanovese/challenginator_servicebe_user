@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,21 +41,25 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    //salva utente
     public HttpStatus saveUser(AppUser appUser){
         AppUser user =  userRepository.save(appUser);
         return HttpStatus.OK;
     }
 
+    // ritorna dettagli utenti
     public Optional<AppUser> findById(Long id){
         return userRepository.findById(id);
     }
 
+    //ritorna id avendo username
     public Long getIdByUser(String username) {
         AppUser user = loadUserByUsername(username);
         return user.getId();
     }
 
-
+    //ritorna la gerarchia dell'utente, fino al 3 livello, indicando utente /capo dell'utente / capo del capo
+    // ritorno una mappa chiave-valore
     public Map<String, Long> getBoss(Long id){
         Map<String,Long> bossDetails = new HashMap<>();
 
@@ -73,6 +78,7 @@ public class AppUserService implements UserDetailsService {
         return bossDetails;
     }
 
+    //incrementa punteggio dell'utente ++ (usato nel caso di success di una sfida)
     public boolean addPointToUser(Long userId) {
         AppUser user = userRepository.getById(userId);
         Long newScore = user.getScore()+1;
@@ -81,7 +87,7 @@ public class AppUserService implements UserDetailsService {
         return true;
     }
 
-
+    //ottiene iformazioni da username - username è email
     @Override
     public AppUser loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(

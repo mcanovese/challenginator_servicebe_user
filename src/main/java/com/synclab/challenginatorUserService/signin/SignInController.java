@@ -31,8 +31,8 @@ public class SignInController {
     @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInRequest signInRequest) throws RuntimeException {
 
-        try {
-            authenticationManager.authenticate(  //prendo dalla request le credenziali e genero un nuovo oggetto
+        try {                                   //prendo dalla request le credenziali e genero un nuovo oggetto
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
         } catch (AuthenticationException e) {
             e.printStackTrace();

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /*
-Classe per il password encoder usata per garantire IoC I
+PASSWORD ENCODER
  */
 
 @Configuration

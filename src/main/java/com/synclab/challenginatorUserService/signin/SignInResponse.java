@@ -14,6 +14,8 @@ definizione risposta endpoint signin - solo il token jwt
 @AllArgsConstructor
 public class SignInResponse {
 
+    // riposta al client che ha effettuato un sign-in, gli ritorna il jwt e l'userId dell'utente
+
     private final String jwt;
     private final String userId;
 

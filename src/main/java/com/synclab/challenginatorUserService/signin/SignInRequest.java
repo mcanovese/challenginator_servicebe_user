@@ -18,6 +18,8 @@ email e password
 @ToString
 public class SignInRequest {
 
+    //definizione della richiesta di login che riceve l'endpoint sign-in
+
     private final String email;
     private final String password;
 

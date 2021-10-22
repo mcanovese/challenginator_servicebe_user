@@ -24,28 +24,31 @@ public class UserController {
 
     // POST USER delegata al signup controller
 
+    //GET - tutti gli utenti
     @GetMapping("/user")
     public List<AppUser> getUser() {
         return appUserService.getAllUser();
     }
 
+    //PUT - aggiorna utente
     @PutMapping("user")
     public HttpStatus updateUser(@RequestBody AppUser appUser){
         return appUserService.saveUser(appUser);
     }
 
+    //GET - ritorna informazioni utente da ID
     @GetMapping("user/{id}")
     public Optional<AppUser> getUserById(@PathVariable Long id ) {
         return appUserService.findById(id);
     }
 
+    //GET - restituisce la gerarchia di responsabili di un id
     @GetMapping("user/valutator/{id}")
-    public Map<String,Long> getValutator(@PathVariable Long id )
-    {
-        //restituisce la gerarchia di responsabili di un id
+    public Map<String,Long> getValutator(@PathVariable Long id ) {
         return appUserService.getBoss(id);
     }
 
+    //POST - endpoint dedicato alla valutazione di una sfida
     @PostMapping( "/user/valutate")
     public HttpStatus addPoint(@RequestHeader(name="challenged") Long challengedId,@RequestHeader(name= "Authorization") String jwt){
 
@@ -63,6 +66,7 @@ public class UserController {
 
     }
 
+    //POST - verifica se l'utente è autenticato, in caso affermativo si ritorna l'ID utente
     @PostMapping("user/authcheck")
     public Long userAuthCheck(@RequestHeader(name= "Authorization") String jwt) {
         String username = jwtUtil.extractUsername(jwt);
