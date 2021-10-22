@@ -15,5 +15,6 @@ definizione risposta endpoint signin - solo il token jwt
 public class SignInResponse {
 
     private final String jwt;
+    private final String userId;
 
 }

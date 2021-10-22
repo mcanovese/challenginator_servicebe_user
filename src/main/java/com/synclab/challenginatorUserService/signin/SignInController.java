@@ -1,5 +1,6 @@
 package com.synclab.challenginatorUserService.signin;
 
+import com.synclab.challenginatorUserService.appuser.AppUser;
 import com.synclab.challenginatorUserService.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,9 @@ public class SignInController {
                 signInRequest.getEmail());
 
         final String jwt = jwtUtil.generateToken(userDetails); // Genero un JWT
-        return ResponseEntity.ok(new SignInResponse(jwt));
+        final String userId = ((AppUser) userDetails).getId().toString();
+
+        return ResponseEntity.ok(new SignInResponse(jwt,userId));
 
     }
 

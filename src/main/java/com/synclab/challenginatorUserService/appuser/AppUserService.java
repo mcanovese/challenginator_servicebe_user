@@ -49,6 +49,12 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
+    public Long getIdByUser(String username) {
+        AppUser user = loadUserByUsername(username);
+        return user.getId();
+    }
+
+
     public Map<String, Long> getBoss(Long id){
         Map<String,Long> bossDetails = new HashMap<>();
 
