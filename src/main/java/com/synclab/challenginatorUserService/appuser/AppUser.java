@@ -71,6 +71,14 @@ public class AppUser implements UserDetails {
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
     @Override
     public String getPassword() {
         return password;

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,22 +14,27 @@ import java.util.Optional;
 public class UserController {
 
     private final AppUserService appUserService;
+    private final AppUserListRepository appUserListRepository;
 
 
     @Autowired
     private  JwtUtil jwtUtil;
 
-    public UserController(AppUserService appUserService ) {
+    public UserController(AppUserService appUserService, AppUserListRepository appUserListRepository ) {
         this.appUserService = appUserService;
+        this.appUserListRepository = appUserListRepository;
     }
 
     // POST USER delegata al signup controller
 
+
     //GET - tutti gli utenti
-    @GetMapping("/user")
-    public List<AppUser> getUser() {
-        return appUserService.getAllUser();
+    @GetMapping("/user/list")
+    public List<AppUserList> getUserList() {
+
+        return appUserListRepository.findAllAppUser();
     }
+
 
     //PUT - aggiorna utente
     @PutMapping("user")
