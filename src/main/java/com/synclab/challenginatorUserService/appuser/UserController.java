@@ -31,8 +31,7 @@ public class UserController {
     //GET - tutti gli utenti
     @GetMapping("/user/list")
     public List<AppUserList> getUserList() {
-
-        return appUserListRepository.findAllAppUser();
+        return appUserService.getUserList();
     }
 
 
