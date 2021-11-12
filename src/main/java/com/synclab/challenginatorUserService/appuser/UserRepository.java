@@ -10,7 +10,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-// il repository si occupa di dialogare con il DB postgres, estende JPARespository
+/*
+definizione del repository degli utenti, unico in questo microservizio
+estende JPARespository, si fa uso di query predefinite (utilizzate nel service)
+a questo repository si appoggiano i tre service previsti (quello generale - quello per il signup e signin)
+
+ */
 
 @Repository
 @Transactional (readOnly = true)

@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
+/*
+REST controller che intercetta la maggior parte delle richieste.
+si occupa di tutto tranne che di signup e signin
+ */
+
+
 @RestController
 public class UserController {
 

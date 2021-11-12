@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 
+/*
+service principale del microservizio, dialoga con il repository e il rest controller che espone la parte pubblica
+ */
+
 @Service
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
@@ -34,6 +38,7 @@ public class AppUserService implements UserDetailsService {
         return HttpStatus.OK;
     }
 
+    //ritorna lista utenti limitando le informazioni esposte, fa uso dell'interfaccia AppUserList
     public List<AppUserList> getUserList(){
         return appUserListRepository.findAllAppUser();
     }

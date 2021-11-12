@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-// il repository si occupa di dialogare con il DB postgres, estende JPARespository
+
+/*
+respository definito per estrarre AppUserList ovvero query limitata ai dati necessari da ritoranre al FE per formazione
+della select di selezione utente da sfidare
+ */
 
 @Repository
 public interface AppUserListRepository extends JpaRepository<AppUser,Long> {

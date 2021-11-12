@@ -6,6 +6,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+
+
+/*
+Richiesta di registrazione, definisce i campi in input
+ */
+
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

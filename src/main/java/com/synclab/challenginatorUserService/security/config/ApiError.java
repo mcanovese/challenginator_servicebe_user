@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+/*
+Classe per rendere intepretabili errori HTTP
+ */
+
 public class ApiError {
 
     private HttpStatus status;

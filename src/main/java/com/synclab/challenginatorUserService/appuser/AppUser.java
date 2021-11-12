@@ -13,8 +13,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 /*
-Definizione della classe AppUser (ricordare che User è una keyword riservata di postgres per cui da errore se si mappa una classe User)
-estende UserDetails per integrazione con Spring Security
+Definizione della classe AppUser  estende UserDetails per integrazione con Spring Security
+definisce i campi dati dell'utente
  */
 
 

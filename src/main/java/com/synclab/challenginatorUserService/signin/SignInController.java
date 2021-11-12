@@ -14,6 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
+/*
+Controller REST che gestisce le operazioni di autenticazione
+ */
+
 @RestController
 @RequestMapping(path="/user/sign-in")
 @AllArgsConstructor

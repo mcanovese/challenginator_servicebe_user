@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+EXCEPTION HANLDER
+ */
+
+
 @Component
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
     @Override

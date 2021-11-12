@@ -7,6 +7,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+
+/*
+service dedicato alla registrazione
+ */
+
 @Service
 @AllArgsConstructor
 public class SignUpService  {

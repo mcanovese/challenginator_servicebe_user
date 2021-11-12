@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/*
+REST Controller che si occupa di gestire le richieste legate al processo di registrazione nuovo utente
+ */
+
 @RestController
 @RequestMapping(path = "/user/sign-up")
 @AllArgsConstructor

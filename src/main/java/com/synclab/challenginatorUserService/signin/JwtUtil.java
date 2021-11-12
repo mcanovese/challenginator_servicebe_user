@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
+/*
+JWT Util per operazioni di signin - verifica validità del token
+ */
+
 @Service
 public class JwtUtil {
     //Secret Key per formazione JWT
