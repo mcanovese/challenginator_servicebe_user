@@ -2,53 +2,55 @@ package com.synclab.challenginatorUserService.signin;
 
 import com.synclab.challenginatorUserService.appuser.AppUser;
 import com.synclab.challenginatorUserService.appuser.AppUserService;
-import io.jsonwebtoken.JwtBuilder;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
-import org.apache.catalina.mbeans.UserMBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import io.jsonwebtoken.JwtBuilder;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+
+/*
+Controller REST che gestisce le operazioni di autenticazione
+ */
 
 @RestController
 @RequestMapping(path="/user/sign-in")
+@AllArgsConstructor
 public class SignInController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private AppUserService appUserService;
-
-    @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInRequest signInRequest) throws Exception{
+    private AppUserService appUserService;
 
-        try {
+
+    @PostMapping
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInRequest signInRequest) throws RuntimeException {
+
+        try {                                   //prendo dalla request le credenziali e genero un nuovo oggetto
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword())
-            );
-        } catch (BadCredentialsException e){
-            throw new Exception("error bad username or password",e);
+                    new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"error\":\"bad credential\"}");
         }
 
-       final UserDetails userDetails = appUserService.loadUserByUsername(
+
+        final UserDetails userDetails = appUserService.loadUserByUsername(
                 signInRequest.getEmail());
 
-        final String jwt = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new SignInResponse(jwt));
+        final String jwt = jwtUtil.generateToken(userDetails); // Genero un JWT
+        final String userId = ((AppUser) userDetails).getId().toString();
 
+        return ResponseEntity.ok(new SignInResponse(jwt,userId));
 
     }
 

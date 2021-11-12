@@ -1,6 +1,7 @@
 package com.synclab.challenginatorUserService.security.config;
 
 import com.synclab.challenginatorUserService.signin.JwtUtil;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+FILTRO JWT
+utilizzato in Security per la gestione degli accessi ad utenti autenticati.
+prende il token in arrivo dalla request sul campo "Authorization" e ne verifica la validità
+
+ */
+
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -25,6 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -52,10 +62,6 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         //continuo su altri filtri se ci sono
         filterChain.doFilter(request, response);
-
-
-
-
 
     }
 }
