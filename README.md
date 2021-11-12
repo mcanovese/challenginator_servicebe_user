@@ -1,2 +1,1 @@
-# challenginator_servicebe_user
-Microservice for user management
+# Challenginator - Back-end microservice for user management
